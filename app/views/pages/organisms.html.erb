@@ -1,0 +1,29 @@
+<% content_for :title, "Individual Organisms | Biologist" %>
+
+<%= turbo_stream_from PopulateOrganismsJob::GLOBAL_STREAM_NAME %>
+
+<div class="w-full max-w-5xl mx-auto space-y-8 pb-16">
+  <header class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between border-b border-slate-200 pb-6">
+    <div>
+      <h1 class="text-3xl font-bold tracking-tight text-slate-900">Individual Organisms</h1>
+      <p class="mt-2 text-sm text-slate-600">
+        <%= @total_organisms_count %> individual organisms, morphs, and life-stages cataloged across <%= @species_count %> species.
+      </p>
+    </div>
+
+    <div class="shrink-0">
+      <%= render "pages/populate_controls",
+                 running: false,
+                 action_path: populate_organisms_path,
+                 button_label: "Discover Organisms",
+                 controls_target: "populate_all_organisms_controls",
+                 status_message: notice,
+                 status_kind: (notice.present? ? :info : nil) %>
+    </div>
+  </header>
+
+  <%= render "pages/organisms_list",
+             species_groups: @species_groups,
+             total_organisms_count: @total_organisms_count,
+             species_count: @species_count %>
+</div>
