@@ -119,7 +119,7 @@ OLLAMA_MODEL=Qwen3.6-35B-A3B-NVFP4
 ```
 
 If you run Ollama on another workstation over Tailscale, point `OLLAMA_API_BASE`
-to its Tailscale IP directly (e.g. `http://100.95.26.48:1919/v1`).
+to its Tailscale IP or MagicDNS address directly (e.g. `http://100.x.y.z:11434/v1` or `http://ollama-host.ts.net:11434/v1`).
 
 Embeddings are configured separately from chat and may point at a different
 Ollama instance:
@@ -142,12 +142,12 @@ to permit:
 - Any Tailscale CGNAT IPv4 address (`100.64.0.0/10`)
 - Any Tailscale IPv6 address (`fd7a:115c:a1e0::/48`)
 - Tailscale MagicDNS hostnames (`*.ts.net`)
-- Local network hostnames (e.g. `mbpro`)
+- Local network hostnames (e.g. `hostname.local`)
 
 You can access Biologist from any device on your Tailscale network:
 ```sh
 http://<your-tailscale-ip>:3005
-# e.g.: http://100.109.198.36:3005 or http://mbpro:3005
+# e.g.: http://100.x.y.z:3005 or http://<device-name>.ts.net:3005
 ```
 
 For custom external domains (such as ngrok or Cloudflare tunnels), set
