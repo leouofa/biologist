@@ -32,6 +32,15 @@ class Api::V1::SettingsAndJobsControllerTest < ActionDispatch::IntegrationTest
     assert json.dig("data", "job_id").present?
   end
 
+  test "POST /api/v1/settings/generate_embeddings returns bad_request for invalid model_type" do
+    post generate_embeddings_api_v1_settings_url, params: { model_type: "InvalidType" }, as: :json
+    assert_response :bad_request
+
+    json = response.parsed_body
+    assert_equal "invalid_model_type", json.dig("error", "code")
+    assert_equal "model_type must be either 'Species' or 'Organism'", json.dig("error", "message")
+  end
+
   test "GET /api/v1/jobs/:id returns tracked job status" do
     Api::JobStatusTracker.record_enqueued("test-job-123", job_class: "PopulateSpeciesJob", arguments: [])
 
