@@ -13,9 +13,12 @@
 [![Sidekiq](https://img.shields.io/badge/Sidekiq-Background_Jobs-B91C1C.svg?logo=sidekiq&logoColor=white)](https://sidekiq.org)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?logo=tailwind-css&logoColor=white)](https://tailwindcss.com)
 [![Hotwire](https://img.shields.io/badge/Hotwire-Turbo%20%26%20Stimulus-F3B01C.svg)](https://hotwired.dev)
+[![MCP Server](https://img.shields.io/badge/MCP_Server-biologist--mcp-6366f1.svg?logo=github&logoColor=white)](https://github.com/leouofa/biologist-mcp)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 **Biologist** is an open-source computational research platform and quantitative analytical laboratory designed for **evolutionary biologists**, **ecologists**, **ethologists**, and **organismal taxonomists**. It enables researchers to systematically map, cluster, and synthesize ecological archetypes, convergent functional adaptations, trophic strategies, and phenotypic manifolds across biomes, species/populations, and individual organisms using **1024-dimensional semantic vector embeddings (`pgvector`)**, **graph-theoretic connected components**, and **multi-stage AI synthesis pipelines**.
+
+Pair it with the official **[Biologist MCP Server](https://github.com/leouofa/biologist-mcp)** to connect AI agents (Claude Desktop, Claude Code, Cursor, Gemini CLI, Antigravity) directly to your computational laboratory.
 
 ---
 
@@ -124,6 +127,47 @@ Biologist provides a full-featured REST API under `/api/v1` returning JSON respo
 - `GET /api/v1/clusters?target_type=Species&level=5`: Interactive agglomerative clustering
 - `POST /api/v1/clusters/snapshot`: Freeze an empirical cluster snapshot
 - `POST /api/v1/cluster_reports`: Synthesize an AI-grounded Map-Reduce or Deep Synthesis report
+
+---
+
+## Official Model Context Protocol (MCP) Server
+
+Connect AI coding agents, IDEs, and assistant workflows (such as Claude Desktop, Claude Code, Cursor, Gemini CLI, and Antigravity) directly to Biologist via the official companion MCP server:
+
+👉 **[Biologist MCP Server (`biologist-mcp`)](https://github.com/leouofa/biologist-mcp)**
+
+```mermaid
+flowchart LR
+    Agents["AI Agents\n(Claude / Cursor / Antigravity)"] <-->|MCP stdio| MCP["biologist-mcp"]
+    MCP <-->|REST API /api/v1| Biologist["Biologist Lab\n(Rails 8.1 Engine)"]
+    Biologist <--> DB["PostgreSQL 16\n(pgvector HNSW)"]
+    Biologist <--> LLM["Local Ollama\n(Inference & Embeddings)"]
+```
+
+The MCP server provides:
+- **51 Registered Tools**: Cross-catalog hybrid semantic search, nearest counterpart discovery, full CRUD and discovery triggers for biomes, species, and organisms, 15-level agglomerative clustering, cluster snapshot freezing, and multi-stage Map-Reduce / Deep Synthesis report generation.
+- **4 Registered Resources**: Read-only access to live platform status (`biologist://status`), biome catalogs (`biologist://biomes`), cluster snapshots (`biologist://snapshots/{id}`), and generated monographs (`biologist://reports/{id}`).
+- **3 Prompt Templates**: Guided workflows for comparative biological analysis (`comparative_biological_analysis`), cluster snapshot monographs (`biological_cluster_monograph`), and evolutionary convergence inquiries (`evolutionary_convergence_inquiry`).
+
+### Quick Setup
+
+Add to your MCP client configuration (e.g., `claude_desktop_config.json`, Cursor, or Antigravity MCP settings):
+
+```json
+{
+  "mcpServers": {
+    "biologist": {
+      "command": "node",
+      "args": ["/path/to/biologist-mcp/dist/index.js"],
+      "env": {
+        "BIOLOGIST_API_BASE_URL": "http://localhost:3000/api/v1"
+      }
+    }
+  }
+}
+```
+
+For installation and local development instructions, see the **[biologist-mcp repository](https://github.com/leouofa/biologist-mcp)**.
 
 ---
 
