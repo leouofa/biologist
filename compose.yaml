@@ -65,6 +65,8 @@ services:
       # Ollama connection: defaults to host gateway, overridden if set in .env
       OLLAMA_API_BASE: ${OLLAMA_API_BASE:-http://host.docker.internal:11434/v1}
       OLLAMA_MODEL: ${OLLAMA_MODEL:-Qwen3.6-35B-A3B-NVFP4}
+      EMBEDDING_API_BASE: ${EMBEDDING_API_BASE:-http://host.docker.internal:11434/v1}
+      EMBEDDING_MODEL: ${EMBEDDING_MODEL:-qwen3-embedding:0.6b}
       # Comma-separated hostnames to allow besides localhost and IP addresses,
       # for example a Tailscale MagicDNS name or an ngrok domain.
       RAILS_DEVELOPMENT_HOSTS: ${RAILS_DEVELOPMENT_HOSTS:-}
@@ -102,6 +104,8 @@ services:
       REDIS_URL: redis://redis:6379/0
       OLLAMA_API_BASE: ${OLLAMA_API_BASE:-http://host.docker.internal:11434/v1}
       OLLAMA_MODEL: ${OLLAMA_MODEL:-Qwen3.6-35B-A3B-NVFP4}
+      EMBEDDING_API_BASE: ${EMBEDDING_API_BASE:-http://host.docker.internal:11434/v1}
+      EMBEDDING_MODEL: ${EMBEDDING_MODEL:-qwen3-embedding:0.6b}
     volumes:
       - .:/rails
     extra_hosts:
