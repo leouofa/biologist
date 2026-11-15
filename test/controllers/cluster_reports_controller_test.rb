@@ -22,13 +22,20 @@ class ClusterReportsControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
     get cluster_reports_url
     assert_response :success
+    assert_select "title", "Archetype & Pattern Reports | Biologist"
     assert_select "h1", /LLM Archetype & Pattern Reports/
+    assert_includes response.body, "Species Reports"
+    assert_includes response.body, "Organism Reports"
+    assert_includes response.body, "Comparative ecological and evolutionary reports"
   end
 
   test "should filter index by target_type" do
     get cluster_reports_url(target_type: "Species")
     assert_response :success
     assert_includes response.body, "Ecological Guilds Snapshot"
+
+    get cluster_reports_url(target_type: "Organism")
+    assert_response :success
   end
 
   test "should show report" do

@@ -21,7 +21,7 @@ class Llm::EmbeddingGeneratorTest < ActiveSupport::TestCase
       fake_context
     }) do
       result = Llm::EmbeddingGenerator.call(
-        "Subatomic Particle: Up Quark (Quarks)",
+        "Species: Panthera tigris (Tropical Rainforest)",
         model: "qwen3-embedding:0.6b",
         api_base: "http://localhost:11434/v1",
         api_key: "secret"
@@ -29,7 +29,7 @@ class Llm::EmbeddingGeneratorTest < ActiveSupport::TestCase
 
       assert_equal "http://localhost:11434/v1", captured_config.ollama_api_base
       assert_equal "secret", captured_config.ollama_api_key
-      assert_equal "Subatomic Particle: Up Quark (Quarks)", captured_embed_args[:text]
+      assert_equal "Species: Panthera tigris (Tropical Rainforest)", captured_embed_args[:text]
       assert_equal(
         { model: "qwen3-embedding:0.6b", provider: :ollama, assume_model_exists: true },
         captured_embed_args[:kwargs]
